@@ -1,6 +1,6 @@
 <?php
 // api for magister
-// Copyright (C) 2010-2011  Erik Kooistra and Koen wolters
+// Copyright (C) 2010-2011  Erik Kooistra and Koen Wolters
 // 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -108,14 +108,12 @@ if (strlen($replace)>10) {
 	$tmp=explode("%",$replace);
 	$replace = array_map(array($this, "explodearray"),$tmp);
 }
-if ($replace=="? ? SEW .") {
+if ($replace=="? ? SEW ."|| $replace=="? ? SEWK .") {
     return array(array("text"=>"se-week"));
 }
 if ($replace=="? ? vry"||$replace=="vrij\r") {
     return array(array("text"=>"vrij"));
 }
-
-//END VOOD
 return $replace;
 }
 

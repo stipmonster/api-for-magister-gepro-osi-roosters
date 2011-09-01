@@ -21,9 +21,9 @@ class rooster
 	// ============
 	// = variablen en array's=
 	// ============
-	private $schoolid; // id van de school 1533 is voor trinitas
-	private $jaarlaag; //jaarlaag van de leerling genooteerd als hoofletter G<klas>
-	private $leerlingnummer; //het leerlingnummer van de leerling
+	private $schoolid; // het id van de school
+	private $jaarlaag; 
+	private $leerlingnummer; 
 	private $debug = FALSE; //TRUE een print_r van de array false geen
 	private $tab = array(0 =>"",1=>"",2=>"",3=>"",4=>"",5=>"");
 	private $tabid;

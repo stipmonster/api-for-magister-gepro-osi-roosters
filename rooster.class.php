@@ -16,6 +16,21 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
+// Exemple code:
+// <?php
+// include 'rooster.class.php';
+// $rooster = new rooster(507,"nvwo+2",120003525);
+// $rooster->getArray(0);
+// $maandag=$rooster->getDay(0,"ma");
+// $counter=1;
+// foreach($maandag as $uur) {
+//	foreach($uur as $les){
+//		echo "maandag uur:".$counter." les in ".$les["lesson"]."\n";
+//	}
+//	$counter++;
+//
+// ?>
+
 class rooster
 {
 	// ============
@@ -39,8 +54,8 @@ class rooster
 	    
 		$array = explode(" ",$vtmp);
 		$array["teacher"] = $array[0];
-		$array["lesson"] = $array[1];
-		$array["room"] = $array[2];
+		$array["room"] = $array[1];
+		$array["lesson"] = $array[2];
 		$array["classNumber"] = $array[3];
 		unset($array[0],$array[1],$array[2],$array[3]);
 		return $array;
@@ -52,7 +67,7 @@ class rooster
 		curl_setopt($ch, CURLOPT_USERAGENT, "Googlebot/2.1 (http://www.googlebot.com/bot.html)");
 		curl_setopt($ch, CURLOPT_URL,$url);
 		curl_setopt($ch, CURLOPT_FAILONERROR, true);
-		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+		//curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); //Kan errors veroorzaken
 		curl_setopt($ch, CURLOPT_AUTOREFERER, true);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER,true);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 10);
@@ -125,8 +140,8 @@ function __construct($school,$jlaag,$lnummer)
 	$this->schoolid = $school;
 	$this->jaarlaag = $jlaag;
 	$this->leerlingnummer = $lnummer;
-	for ($i=0; $i <= 5; $i++) { 
-		$this->tab[$i]= $this->getDocument("http://roosters5.gepro-osi.nl/roosters/rooster.php?leerling=".$this->leerlingnummer."&type=Leerlingrooster&afdeling=".$this->jaarlaag."&tabblad=".$i."&school=".$this->schoolid);
+	$this->tab[0]= $this->getDocument("http://roosters5.gepro-osi.nl/roosters/rooster.php?leerling=".$this->leerlingnummer."&type=Leerlingrooster&afdeling=".$this->jaarlaag."&tabblad=0&school=".$this->schoolid);
+	$this->tab[1]=$this->getDocument("http://roosters5.gepro-osi.nl/roosters/rooster.php?wijzigingen=1&leerling=".$this->leerlingnummer."&type=Leerlingrooster&afdeling=".$this->jaarlaag."&tabblad=0&school=".$this->schoolid);
 		//DIT IS EEN SERVERSIDE CACHE BEN ALLEEN BANG DAT IK DOOR MIJN SCHIJFRUIMTE HEEN GA DUS LAAT HET NU NOG FF TUSSEN COMMENT TAGS STAAN. 
 		/*$file=glob("./tmp/rooster-".$i."-*");
 		if(md5($this->tab[$i])==md5_file($file[0]))
@@ -152,8 +167,6 @@ fwrite($file,$this->tab[$i]);
 }
 }
 }*/
-
-}
 
 }
 
@@ -203,14 +216,14 @@ public function getArray($id)
 	$nodes = $xpath->evaluate("/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[5]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[6]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[7]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[8]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[9]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[10]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[11]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[12]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[13]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[14]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[15]/td");
 	for ($i=0; $i < $nodes->length; $i++) {
 		for($j=1; $j <= 10; $j++){
-			if($this->clear($nodes->item($i)->nodeValue)=='0'.$j.'e uur'){
+			if($this->clear($nodes->item($i)->nodeValue)==$j.'e uur'){
 				for ($k=0; $k < 5; $k++) {
 					$l=$i+$k; 
 					$l++;
 					$rooster[$dagen[$k]][$j]=$this->clear($nodes->item($l)->nodeValue);
 					$l=0;
 					if ($rooster[$dagen[$k]][$j]==NULL) {
-						$rooster[$dagen[$k]][$j]=Array ("teacher" =>" ","lesson"=> " ", "room" => " ", "classNumber" => " " ) ;  
+						$rooster[$dagen[$k]][$j][]=Array ("teacher" =>" ","room"=> " ", "lesson" => " ", "classNumber" => " " ) ;  
 					}
 				}
 			}

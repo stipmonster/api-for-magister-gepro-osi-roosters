@@ -16,6 +16,21 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
+// Exemple code:
+// <?php
+// include 'rooster.class.php';
+// $rooster = new rooster(507,"nvwo+2",120003525);
+// $rooster->getArray(0);
+// $maandag=$rooster->getDay(0,"ma");
+// $counter=1;
+// foreach($maandag as $uur) {
+//	foreach($uur as $les){
+//		echo "maandag uur:".$counter." les in ".$les["lesson"]."\n";
+//	}
+//	$counter++;
+//
+// ?>
+
 class rooster
 {
 	// ============
@@ -52,7 +67,7 @@ class rooster
 		curl_setopt($ch, CURLOPT_USERAGENT, "Googlebot/2.1 (http://www.googlebot.com/bot.html)");
 		curl_setopt($ch, CURLOPT_URL,$url);
 		curl_setopt($ch, CURLOPT_FAILONERROR, true);
-		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+		//curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); //Kan errors veroorzaken
 		curl_setopt($ch, CURLOPT_AUTOREFERER, true);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER,true);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 10);

@@ -125,8 +125,8 @@ function __construct($school,$jlaag,$lnummer)
 	$this->schoolid = $school;
 	$this->jaarlaag = $jlaag;
 	$this->leerlingnummer = $lnummer;
-	for ($i=0; $i <= 5; $i++) { 
-		$this->tab[$i]= $this->getDocument("http://roosters5.gepro-osi.nl/roosters/rooster.php?leerling=".$this->leerlingnummer."&type=Leerlingrooster&afdeling=".$this->jaarlaag."&tabblad=".$i."&school=".$this->schoolid);
+	$this->tab[0]= $this->getDocument("http://roosters5.gepro-osi.nl/roosters/rooster.php?leerling=".$this->leerlingnummer."&type=Leerlingrooster&afdeling=".$this->jaarlaag."&tabblad=0&school=".$this->schoolid);
+	$this->tab[1]=$this->getDocument("http://roosters5.gepro-osi.nl/roosters/rooster.php?wijzigingen=1&leerling=".$this->leerlingnummer."&type=Leerlingrooster&afdeling=".$this->jaarlaag."&tabblad=0&school=".$this->schoolid);
 		//DIT IS EEN SERVERSIDE CACHE BEN ALLEEN BANG DAT IK DOOR MIJN SCHIJFRUIMTE HEEN GA DUS LAAT HET NU NOG FF TUSSEN COMMENT TAGS STAAN. 
 		/*$file=glob("./tmp/rooster-".$i."-*");
 		if(md5($this->tab[$i])==md5_file($file[0]))
@@ -152,8 +152,6 @@ fwrite($file,$this->tab[$i]);
 }
 }
 }*/
-
-}
 
 }
 

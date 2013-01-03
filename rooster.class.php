@@ -201,7 +201,7 @@ public function getArray($id)
 	$nodes = $xpath->evaluate("/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[5]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[6]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[7]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[8]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[9]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[10]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[11]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[12]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[13]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[14]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[15]/td");
 	for ($i=0; $i < $nodes->length; $i++) {
 		for($j=1; $j <= 10; $j++){
-			if($this->clear($nodes->item($i)->nodeValue)=='0'.$j.'e uur'){
+			if($this->clear($nodes->item($i)->nodeValue)==$j.'e uur'){
 				for ($k=0; $k < 5; $k++) {
 					$l=$i+$k; 
 					$l++;

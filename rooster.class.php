@@ -39,8 +39,8 @@ class rooster
 	    
 		$array = explode(" ",$vtmp);
 		$array["teacher"] = $array[0];
-		$array["lesson"] = $array[1];
-		$array["room"] = $array[2];
+		$array["room"] = $array[1];
+		$array["lesson"] = $array[2];
 		$array["classNumber"] = $array[3];
 		unset($array[0],$array[1],$array[2],$array[3]);
 		return $array;
@@ -208,7 +208,7 @@ public function getArray($id)
 					$rooster[$dagen[$k]][$j]=$this->clear($nodes->item($l)->nodeValue);
 					$l=0;
 					if ($rooster[$dagen[$k]][$j]==NULL) {
-						$rooster[$dagen[$k]][$j]=Array ("teacher" =>" ","lesson"=> " ", "room" => " ", "classNumber" => " " ) ;  
+						$rooster[$dagen[$k]][$j][]=Array ("teacher" =>" ","room"=> " ", "lesson" => " ", "classNumber" => " " ) ;  
 					}
 				}
 			}

@@ -1,5 +1,49 @@
-Deze php-api/scraper is voor de http://roosters.gepro-osi.nl/roosters/rooster.php wanneer jouw school dit gebruikt kan je gebruik maken hiervan.
+Inleiding:
+==========
+Deze API is om gegevens op te halen van http://roosters5.gepro-osi.nl/roosters/rooster.php, mocht je school dit gebruiken dan kun je deze API hiervoor gebruiken.
 
-Voor de huidige magister (4/5) heb ik geen werkend gedoe omdat ze nog al veel encryptie hebben.
+Hoe te gebruiken:
+=================
+De API is simpel te gebruiken in PHP, ik geef je een voorbeeld:
 
-Ben te lui om documentatie te schrijven, lees de code.
+<?php
+include 'http://short.x11s.org/rooster507.class.php'; //De nieuwste versie van de API laden.
+$rooster = new rooster(123,vwo1,1234567); //Nieuw rooster aanmaken, tussen haakjes: Schoolnummer, richting, leerling.
+                                          //Zijn te vinden in de url.
+?>
+
+<bla bla bla een hoop html>
+
+<?php //Php oproepen op het moment dat je het rooster wilt tonen
+$rooster->getArray(0);                    //API oproepen, dat hij rooster moet geven
+$dag=$rooster->getDay(1,"ma");            //Zeggen welke dag de API op moet halen
+$counter=1;                               //Zorgen dat er een nummer voor de lessen komt
+foreach($dag as $uur) {                   //Voor iedere dag een uur
+  foreach($uur as $les){                  //Voor ieder uur een les
+		echo "".$counter." <br> ".$les["teacher"]." - ".$les["room"]." - ".$les["lesson"]."\n <br>"; //Uitvoeren in HTML
+	}
+	$counter++;                             //1 Optellen bij de couter
+}
+?>
+
+Dit is het, simple niet?
+
+Huidige magister:
+=================
+De huidige magister (4/5) is geschreven in silverlight (ja inderdaad dit is erg verouderd!) er is hiervoor een goede encryptie gebruikt. Deze is te kraken d.m.v de android app van magister meta.
+Voor meer over dit onderwerp kun je kijken op:
+https://github.com/tkon99/magister-api-NL
+
+FAQ:
+====
+Er zijn nog geen veelgestelde vragen
+
+Vragen:
+=======
+Je kunt vragen altijd aan mij stellen:
+tkon99
+
+Copyright:
+==========
+Originele API door Stipmonster
+Documentatie en uitleg door tkon99

@@ -1,9 +1,9 @@
 Inleiding:
-==========
+===============
 Deze API is om gegevens op te halen van http://roosters5.gepro-osi.nl/roosters/rooster.php, mocht je school dit gebruiken dan kun je deze API hiervoor gebruiken.
 
 Hoe te gebruiken:
-=================
+===============
 De API is simpel te gebruiken in PHP, ik geef je een voorbeeld:
 
 <?php

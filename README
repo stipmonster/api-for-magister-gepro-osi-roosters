@@ -36,7 +36,11 @@ https://github.com/tkon99/magister-api-NL
 
 FAQ:
 ====
-Er zijn nog geen veelgestelde vragen
+V:
+Waarom doet de API het bij mijn school niet?
+A:
+Dit komt omdat iedere school de uren een andere naam geeft bijv. 01,02,etc. of 1,2,etc. of 1e,2e,etc. of zelfs eerste,tweede,etc.
+Check even of er naast de master branch ook nog een aparte branch is voor jouw school.
 
 Vragen:
 =======

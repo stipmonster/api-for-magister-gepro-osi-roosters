@@ -7,7 +7,7 @@ Hoe te gebruiken:
 De API is simpel te gebruiken in PHP, ik geef je een voorbeeld:
 
 <?php
-include 'http://short.x11s.org/rooster507.class.php'; //De nieuwste versie van de API laden.
+include 'http://short.x11s.org/rooster.class.php'; //De nieuwste versie van de API laden.
 $rooster = new rooster(123,vwo1,1234567); //Nieuw rooster aanmaken, tussen haakjes: Schoolnummer, richting, leerling.
                                           //Zijn te vinden in de url.
 ?>

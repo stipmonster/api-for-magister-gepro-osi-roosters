@@ -88,54 +88,28 @@ class rooster
 		}
 		return 0;
 	}
-	private function clear($clear)
-	{
-		/*
-		* Als een persoon meerdere vakken op 1 uur heeft is de totale lengete minimaal 40 tekens wanneer een persoon maar 1 uur heeft is het minder, de >10 is voor het splitsen van de 2 vakken in 2 arrays daarvoor word de functie explodearray gebruikt.
-		Vraag me niet waarvoor al de str_replace zijn, het werkt nu en ik weet zeker wanneer ik er iets aan ga verandern dat het dan niet meer werkt dus blijf er van af.
 
-*/
-$count = 1;
-$replace=$clear;
-if (strlen($clear)>40) {//VOODOO WARING
-	$rep1=str_replace(" ".chr(10),"",str_replace(chr(10)." "," ",str_replace(chr(10)." ".chr(10)." "," ",str_replace('&amp;nbsp','',htmlentities($clear)))));
-	$rep=str_replace(chr(10),"%",substr_replace($rep1,"",-1,1));
-	$replace= str_replace("   ","",str_replace("     ","",$rep));
-}else{
-	$replace= str_replace("  ","",str_replace("     ","",str_replace(chr(10),"", str_replace(" ".chr(10),"",str_replace(chr(10)." "," ",str_replace(chr(10)." ".chr(10)." "," ",str_replace('&amp;nbsp','',htmlentities($clear))))))));
-}
-if (strlen($replace)>10) {
-	$tmp=explode("%",$replace);
-	$replace = array_map(array($this, "explodearray"),$tmp);
-}
-if ($replace=="? ? SEW ."|| $replace=="? ? SEWK .") {
-    return array(array("text"=>"se-week"));
-}
-if ($replace=="? ? vry"||$replace=="vrij\r") {
-    return array(array("text"=>"vrij"));
-}
-return $replace;
-}
-private function dom2vakken($node)
-{
-    $new = new DomDocument;
-    $new->appendChild($new->importNode($node, true));
-    $counter=0;
-    foreach ($new->getElementsByTagName("tr") as $tr) {
-        $newtr = new DomDocument;
-        $newtr->appendChild($newtr->importNode($tr, true));
-        $bla=$newtr->getElementsByTagName("td");
-		$array[$counter]["teacher"] = trim($bla->item(0)->textContent);
-		$array[$counter]["lesson"] = trim($bla->item(4)->textContent);
-		$array[$counter]["room"] = trim($bla->item(2)->textContent);
-		$array[$counter]["classNumber"] = trim($bla->item(7)->textContent);
-        $counter++;
+    private function dom2vakken($node)
+    {
+        $new = new DomDocument;
+        $new->appendChild($new->importNode($node, true));
+        $counter=0;
+        foreach ($new->getElementsByTagName("tr") as $tr) {
+            $newtr = new DomDocument;
+            $newtr->appendChild($newtr->importNode($tr, true));
+            $bla=$newtr->getElementsByTagName("td");
+            $array[$counter]["teacher"] = trim($bla->item(0)->textContent);
+            $array[$counter]["lesson"] = trim($bla->item(4)->textContent);
+            $array[$counter]["room"] = trim($bla->item(2)->textContent);
+            $array[$counter]["classNumber"] = trim($bla->item(7)->textContent);
+            $counter++;
+        }
+        if (!is_array($array)) {
+            return 
+                (Array ("teacher" =>"","lesson"=> "", "room" => "", "classNumber" => "" );
+        }
+        return $array;
     }
-    if (!is_array($array)) {
-        return Array ("teacher" =>"","lesson"=> "", "room" => "", "classNumber" => "" );
-    }
-    return $array;
-}
 
 
 // ===================
@@ -187,29 +161,26 @@ public function getWeek($tab)
 }
 public function getArray($id)
 {
-	$html=$this->tab[$id];
-	$dom = new DOMDocument(); 
-	@$dom->loadHtml($html);
-	$uur = array(1 => "", 2 => "",3 => "",4 => "",5 => "",6 => "",7 => "",8 => "",9 => "",10 => "",);
-	$rooster = array('week'=>'','ma'=>$uur ,'di'=>$uur,'wo'=>$uur,'do'=>$uur,'vr'=>$uur);
-	$rooster['week']=$this->getTitle($id);
+    $html=$this->tab[$id];
+    $dom = new DOMDocument(); 
+    @$dom->loadHtml($html);
 
-	$dagen=array(0=>'ma',1=>'di',2=>'wo',3=>'do',4=>'vr');
-	$xpath = new DOMXPath($dom);
-	$nodes = $xpath->evaluate("/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[5]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[6]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[7]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[8]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[9]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[10]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[11]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[12]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[13]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[14]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[15]/td");
-	for ($i=0; $i < $nodes->length; $i++) {
-		for($j=1; $j <= 10; $j++){
-			if($this->clear($nodes->item($i)->nodeValue)=='0'.$j.'e uur' ||$this->clear($nodes->item($i)->nodeValue)==$j.'e uur'){
-				for ($k=0; $k < 5; $k++) {
-					$l=$i+$k; 
-					$l++;
-					$rooster[$dagen[$k]][$j]=$this->dom2vakken($nodes->item($l));
-					$l=0;
-				}
-			}
-		}
-	}
-	$this->tabarray[$id]=$rooster;
+    $rooster['week']=$this->getTitle($id);
+
+    $dagen=array(0=>'ma',1=>'di',2=>'wo',3=>'do',4=>'vr');
+    $xpath = new DOMXPath($dom);
+    $nodes = $xpath->evaluate("/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr");
+    for ($i=5; $i < ($nodes->length-(12-$this->aantalUren)); $i++) {
+        $lesuur = new DomDocument;
+        $lesuur->appendChild($lesuur->importNode($nodes->item($i), true));
+        $lesuren=$lesuur->getElementsByTagName("table");
+        $counter=0;
+        foreach ($lesuren as $les) {
+            $rooster[$dagen[$counter]][$i-4]=$this->dom2vakken($les);
+            $counter++;
+        }
+    }
+    $this->tabarray[$id]=$rooster;
 }
 
 public function getDay($id,$day){

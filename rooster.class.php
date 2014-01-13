@@ -116,6 +116,27 @@ if ($replace=="? ? vry"||$replace=="vrij\r") {
 }
 return $replace;
 }
+private function dom2vakken($node)
+{
+    $new = new DomDocument;
+    $new->appendChild($new->importNode($node, true));
+    $counter=0;
+    foreach ($new->getElementsByTagName("tr") as $tr) {
+        $newtr = new DomDocument;
+        $newtr->appendChild($newtr->importNode($tr, true));
+        $bla=$newtr->getElementsByTagName("td");
+		$array[$counter]["teacher"] = trim($bla->item(0)->textContent);
+		$array[$counter]["lesson"] = trim($bla->item(4)->textContent);
+		$array[$counter]["room"] = trim($bla->item(2)->textContent);
+		$array[$counter]["classNumber"] = trim($bla->item(7)->textContent);
+        $counter++;
+    }
+    if (!is_array($array)) {
+        return Array ("teacher" =>"","lesson"=> "", "room" => "", "classNumber" => "" );
+    }
+    return $array;
+}
+
 
 // ===================
 // = public funtions =
@@ -127,33 +148,8 @@ function __construct($school,$jlaag,$lnummer)
 	$this->leerlingnummer = $lnummer;
 	for ($i=0; $i <= 5; $i++) { 
 		$this->tab[$i]= $this->getDocument("http://roosters5.gepro-osi.nl/roosters/rooster.php?leerling=".$this->leerlingnummer."&type=Leerlingrooster&afdeling=".$this->jaarlaag."&tabblad=".$i."&school=".$this->schoolid);
-		//DIT IS EEN SERVERSIDE CACHE BEN ALLEEN BANG DAT IK DOOR MIJN SCHIJFRUIMTE HEEN GA DUS LAAT HET NU NOG FF TUSSEN COMMENT TAGS STAAN. 
-		/*$file=glob("./tmp/rooster-".$i."-*");
-		if(md5($this->tab[$i])==md5_file($file[0]))
-		{
-		$this->modify[$i]=FALSE;
-		$this->correct[$i]=TRUE;
-		}else{
-		$this->modify[$i]=TRUE;
 
-if ($this->tab[$i]==FALSE) {
-foreach (glob("./tmp/rooster-".$this->leerlingnummer."-".$i."-*") as $filename) {
-$file=fopen($filename,"r+");
-$this->tab[$i]=fread($file,filesize($filename));
-}
-}else{
-foreach (glob("./tmp/rooster-".$this->leerlingnummer."-".$i."-*") as $filename) {
-unlink($filename);
-}
-
-if($file=fopen("./tmp/rooster-".$this->leerlingnummer."-".$i."-".time(),"w+"))
-{
-fwrite($file,$this->tab[$i]);
-}
-}
-}*/
-
-}
+    }
 
 }
 
@@ -203,15 +199,12 @@ public function getArray($id)
 	$nodes = $xpath->evaluate("/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[5]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[6]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[7]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[8]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[9]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[10]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[11]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[12]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[13]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[14]/td|/html/body/div/table/tr[2]/td/table[4]/tr/td[3]/table/tr[15]/td");
 	for ($i=0; $i < $nodes->length; $i++) {
 		for($j=1; $j <= 10; $j++){
-			if($this->clear($nodes->item($i)->nodeValue)=='0'.$j.'e uur'){
+			if($this->clear($nodes->item($i)->nodeValue)=='0'.$j.'e uur' ||$this->clear($nodes->item($i)->nodeValue)==$j.'e uur'){
 				for ($k=0; $k < 5; $k++) {
 					$l=$i+$k; 
 					$l++;
-					$rooster[$dagen[$k]][$j]=$this->clear($nodes->item($l)->nodeValue);
+					$rooster[$dagen[$k]][$j]=$this->dom2vakken($nodes->item($l));
 					$l=0;
-					if ($rooster[$dagen[$k]][$j]==NULL) {
-						$rooster[$dagen[$k]][$j]=Array ("teacher" =>" ","lesson"=> " ", "room" => " ", "classNumber" => " " ) ;  
-					}
 				}
 			}
 		}

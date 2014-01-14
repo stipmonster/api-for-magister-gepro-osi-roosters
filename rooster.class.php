@@ -30,6 +30,7 @@ class rooster
 	private $tabarray = array(0 =>"",1=>"",2=>"",3=>"",4=>"",5=>"");
 	private $correct;
 	private $modify;
+    private $aantalUren;
 
 	// ===========================
 	// = private setup functions =
@@ -52,7 +53,6 @@ class rooster
 		curl_setopt($ch, CURLOPT_USERAGENT, "Googlebot/2.1 (http://www.googlebot.com/bot.html)");
 		curl_setopt($ch, CURLOPT_URL,$url);
 		curl_setopt($ch, CURLOPT_FAILONERROR, true);
-		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 		curl_setopt($ch, CURLOPT_AUTOREFERER, true);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER,true);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 10);
@@ -88,38 +88,51 @@ class rooster
 		}
 		return 0;
 	}
+	private function clear($clear)
+	{
 
-    private function dom2vakken($node)
-    {
-        $new = new DomDocument;
-        $new->appendChild($new->importNode($node, true));
-        $counter=0;
-        foreach ($new->getElementsByTagName("tr") as $tr) {
-            $newtr = new DomDocument;
-            $newtr->appendChild($newtr->importNode($tr, true));
-            $bla=$newtr->getElementsByTagName("td");
-            $array[$counter]["teacher"] = trim($bla->item(0)->textContent);
-            $array[$counter]["lesson"] = trim($bla->item(4)->textContent);
-            $array[$counter]["room"] = trim($bla->item(2)->textContent);
-            $array[$counter]["classNumber"] = trim($bla->item(7)->textContent);
-            $counter++;
-        }
-        if (!is_array($array)) {
-            return 
-                (Array ("teacher" =>"","lesson"=> "", "room" => "", "classNumber" => "" );
-        }
-        return $array;
+		/*
+		* Als een persoon meerdere vakken op 1 uur heeft is de totale lengete minimaal 40 tekens wanneer een persoon maar 1 uur heeft is het minder, de >10 is voor het splitsen van de 2 vakken in 2 arrays daarvoor word de functie explodearray gebruikt.
+		Vraag me niet waarvoor al de str_replace zijn, het werkt nu en ik weet zeker wanneer ik er iets aan ga verandern dat het dan niet meer werkt dus blijf er van af.
+
+*/
+$count = 1;
+$replace=$clear;
+$replace= str_replace("  ","",str_replace("     ","",str_replace(chr(10),"", str_replace(" ".chr(10),"",str_replace(chr(10)." "," ",str_replace(chr(10)." ".chr(10)." "," ",str_replace('&amp;nbsp','',htmlentities($clear))))))));
+
+return $replace;
+}
+private function dom2vakken($node)
+{
+    $new = new DomDocument;
+    $new->appendChild($new->importNode($node, true));
+    $counter=0;
+    foreach ($new->getElementsByTagName("tr") as $tr) {
+        $newtr = new DomDocument;
+        $newtr->appendChild($newtr->importNode($tr, true));
+        $bla=$newtr->getElementsByTagName("td");
+		$array[$counter]["teacher"] = trim($bla->item(0)->textContent);
+		$array[$counter]["lesson"] = trim($bla->item(4)->textContent);
+    		$array[$counter]["room"] = trim($bla->item(2)->textContent);
+		$array[$counter]["classNumber"] = trim($bla->item(7)->textContent);
+        $counter++;
     }
+    if (!is_array($array)) {
+        return Array ("teacher" =>"","lesson"=> "", "room" => "", "classNumber" => "" );
+    }
+    return $array;
+}
 
 
 // ===================
 // = public funtions =
 // ===================
-function __construct($school,$jlaag,$lnummer)
+function __construct($school,$jlaag,$lnummer,$lesuren)
 {
 	$this->schoolid = $school;
 	$this->jaarlaag = $jlaag;
 	$this->leerlingnummer = $lnummer;
+    $this->aantalUren=$lesuren;
 	for ($i=0; $i <= 5; $i++) { 
 		$this->tab[$i]= $this->getDocument("http://roosters5.gepro-osi.nl/roosters/rooster.php?leerling=".$this->leerlingnummer."&type=Leerlingrooster&afdeling=".$this->jaarlaag."&tabblad=".$i."&school=".$this->schoolid);
 
@@ -164,7 +177,6 @@ public function getArray($id)
     $html=$this->tab[$id];
     $dom = new DOMDocument(); 
     @$dom->loadHtml($html);
-
     $rooster['week']=$this->getTitle($id);
 
     $dagen=array(0=>'ma',1=>'di',2=>'wo',3=>'do',4=>'vr');

@@ -10,7 +10,7 @@ De API is simpel te gebruiken in PHP, ik geef je een voorbeeld:
 
 <?php
 include 'rooster.class.php'; //De nieuwste versie van de API laden.
-$rooster = new rooster(123,vwo1,1234567); //Nieuw rooster aanmaken, tussen haakjes: Schoolnummer, richting, leerling.
+$rooster = new rooster(123,vwo1,1234567,10); //Nieuw rooster aanmaken, tussen haakjes: Schoolnummer, richting, leerling, aantal lesuren.
                                           //Zijn te vinden in de url.
 ?>
 
@@ -28,31 +28,29 @@ foreach($dag as $uur) {                   //Voor iedere dag een uur
 }
 ?>
 
-Dit is het, simple niet?
 
 Huidige magister:
 =================
-De huidige magister (4/5) is geschreven in silverlight (ja inderdaad dit is erg verouderd!) er is hiervoor een goede encryptie gebruikt. Deze is te kraken d.m.v de android app van magister meta.
-Voor meer over dit onderwerp kun je kijken op:
-https://github.com/tkon99/magister-api-NL
+De huidige magister 5 is geschreven in silverlight. Ze hebben op dit moment een html5 beta, iemand heeft daarvoor https://github.com/lieuwex/MataSharp geschreven in c#, om dit te kunnen gebruiken in je eigen api.
+
 
 FAQ:
 ====
 V:
 Waarom doet de API het bij mijn school niet?
 A:
-Dit komt omdat iedere school de uren een andere naam geeft bijv. 01,02,etc. of 1,2,etc. of 1e,2e,etc. of zelfs eerste,tweede,etc.
-Check even of er naast de master branch ook nog een aparte branch is voor jouw school.
+Sinds 0.9.1 zouden alle scholen het moeten doen, omdat er geen hardcoded waardes meer zijn, werkt het toch niet meen gerust contact met me op.
 
 Vragen:
 =======
 Je kunt vragen altijd aan mij stellen:
-tkon99
-of aan:
+
 stipmonster
 
 Copyright:
 ==========
 Originele API door Stipmonster
-Documentatie en wiki door tkon99
-Documentatie en uitleg door tkon99
+De API is licensed onder de GNU LESSER GENERAL PUBLIC LICENSE, zie de LICENSE file voor meer informatie.
+Documentatie en wiki door tkon99 & stipmonster
+Documentatie en uitleg door tkon99 & stipmonster
+

@@ -1,10 +1,10 @@
-Inleiding:
+Inleiding
 ===============
 Deze API is om gegevens op te halen van http://roosters5.gepro-osi.nl/roosters/rooster.php, mocht je school dit gebruiken dan kun je deze API hiervoor gebruiken.
 
 Voor een C# implementatie zie: https://github.com/lieuwex/GEPRO_OSIsharp
 
-Hoe te gebruiken:
+Hoe te gebruiken
 ===============
 De API is simpel te gebruiken in PHP, ik geef je een voorbeeld:
 
@@ -30,28 +30,37 @@ foreach($dag as $uur) {                   //Voor iedere dag een uur
 ?>
 ```
 
-Huidige magister:
+Huidige magister
 =================
-De huidige magister 5 is geschreven in silverlight. Ze hebben op dit moment een html5 beta, iemand heeft daarvoor https://github.com/lieuwex/MataSharp geschreven in c#, om dit te kunnen gebruiken in je eigen api.
+De huidige magister 5 is geschreven in silverlight.
+
+Ze hebben op dit moment een html5 beta, iemand heeft daarvoor https://github.com/lieuwex/MataSharp geschreven in c#, om dit te kunnen gebruiken in je eigen api.
 
 
-FAQ:
+FAQ
 ====
 V:
+
 Waarom doet de API het bij mijn school niet?
+
+
 A:
+
 Sinds 0.9.1 zouden alle scholen het moeten doen, omdat er geen hardcoded waardes meer zijn, werkt het toch niet meen gerust contact met me op.
 
-Vragen:
+Vragen
 =======
 Je kunt vragen altijd aan mij stellen:
 
-stipmonster
+stipmonster (https://github.com/stipmonster)
 
-Copyright:
+Copyright
 ==========
 Originele API door Stipmonster
+
 De API is licensed onder de GNU LESSER GENERAL PUBLIC LICENSE, zie de LICENSE file voor meer informatie.
+
 Documentatie en wiki door tkon99 & stipmonster
+
 Documentatie en uitleg door tkon99 & stipmonster
 

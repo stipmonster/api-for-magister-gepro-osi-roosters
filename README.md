@@ -8,6 +8,7 @@ Hoe te gebruiken:
 ===============
 De API is simpel te gebruiken in PHP, ik geef je een voorbeeld:
 
+```PHP
 <?php
 include 'rooster.class.php'; //De nieuwste versie van de API laden.
 $rooster = new rooster(123,vwo1,1234567,10); //Nieuw rooster aanmaken, tussen haakjes: Schoolnummer, richting, leerling, aantal lesuren.
@@ -27,7 +28,7 @@ foreach($dag as $uur) {                   //Voor iedere dag een uur
 	$counter++;                             //1 Optellen bij de couter
 }
 ?>
-
+```
 
 Huidige magister:
 =================

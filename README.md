@@ -36,6 +36,10 @@ De huidige magister 5 is geschreven in silverlight.
 
 Ze hebben op dit moment een html5 beta, iemand heeft daarvoor https://github.com/lieuwex/MataSharp geschreven in c#, om dit te kunnen gebruiken in je eigen api.
 
+Gezien magister nu ook een html5 variant heeft kan je
+https://github.com/DutchCodeGeeks/MATA-PHP
+
+Gebruiken om hiermee data uit te trekken.
 
 FAQ
 ====

@@ -30,16 +30,11 @@ foreach($dag as $uur) {                   //Voor iedere dag een uur
 ?>
 ```
 
-Huidige magister
+Huidige Magister
 =================
-De huidige magister 5 is geschreven in silverlight.
+De huidige Magister 5 is geschreven in Silverlight.
 
-Ze hebben op dit moment een html5 beta, iemand heeft daarvoor https://github.com/lieuwex/MataSharp geschreven in c#, om dit te kunnen gebruiken in je eigen api.
-
-Gezien magister nu ook een html5 variant heeft kan je
-https://github.com/DutchCodeGeeks/MATA-PHP
-
-Gebruiken om hiermee data uit te trekken.
+Magister heeft nu ook een HTML5 variant, voor .NET kan je hiervoor [MataSharp](https://github.com/lieuwex/MataSharp) gebruiken en voor PHP kan je hiervoor [MATA-PHP](https://github.com/DutchCodeGeeks/MATA-PHP) gebruiken.
 
 FAQ
 ====
@@ -56,7 +51,7 @@ Vragen
 =======
 Je kunt vragen altijd aan mij stellen:
 
-stipmonster (https://github.com/stipmonster)
+[stipmonster](https://github.com/stipmonster)
 
 Copyright
 ==========
@@ -64,7 +59,5 @@ Originele API door Stipmonster
 
 De API is licensed onder de GNU LESSER GENERAL PUBLIC LICENSE, zie de LICENSE file voor meer informatie.
 
-Documentatie en wiki door tkon99 & stipmonster
-
-Documentatie en uitleg door tkon99 & stipmonster
+Documentatie, wiki & uitleg door tkon99 & stipmonster
 

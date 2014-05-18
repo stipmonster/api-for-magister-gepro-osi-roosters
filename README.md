@@ -34,7 +34,7 @@ Huidige Magister
 =================
 De huidige Magister 5 is geschreven in Silverlight.
 
-Magister heeft nu ook een HTML5 variant, voor .NET kan je hiervoor [MataSharp](https://github.com/lieuwex/MataSharp) gebruiken en voor PHP kan je hiervoor [MATA-PHP](https://github.com/DutchCodeGeeks/MATA-PHP) gebruiken.
+Magister heeft nu ook een HTML5 variant, voor .NET kan je hiervoor [MataSharp](https://github.com/DutchCodeGeeks/MataSharp) gebruiken en voor PHP kan je hiervoor [MATA-PHP](https://github.com/DutchCodeGeeks/MATA-PHP) gebruiken.
 
 FAQ
 ====

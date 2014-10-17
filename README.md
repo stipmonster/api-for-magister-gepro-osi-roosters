@@ -32,9 +32,9 @@ foreach($dag as $uur) {                   //Voor iedere dag een uur
 
 Huidige Magister
 =================
-De huidige Magister 5 is geschreven in Silverlight.
+De huidige Magister 6 is in HTML5.
 
-Magister heeft nu ook een HTML5 variant, voor .NET kan je hiervoor [MataSharp](https://github.com/DutchCodeGeeks/MataSharp) gebruiken en voor PHP kan je hiervoor [MATA-PHP](https://github.com/DutchCodeGeeks/MATA-PHP) gebruiken.
+Voor JavaScript kan je hiervoor [Magister.js](http://simplygits.github.io/MagisterJS/) gebruiken.
 
 FAQ
 ====

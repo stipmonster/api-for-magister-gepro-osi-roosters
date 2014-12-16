@@ -45,7 +45,7 @@ Waarom doet de API het bij mijn school niet?
 
 A:
 
-Sinds 0.9.1 zouden alle scholen het moeten doen, omdat er geen hardcoded waardes meer zijn, werkt het toch niet meen gerust contact met me op.
+Sinds 0.9.1 zouden alle scholen het moeten doen, omdat er geen hardcoded waardes meer zijn, werkt het toch niet neem gerust contact met me op.
 
 Vragen
 =======

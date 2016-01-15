@@ -30,6 +30,17 @@ foreach($dag as $uur) {                   //Voor iedere dag een uur
 ?>
 ```
 
+Meer functies
+==============
+Deze library/API kan enkel roosters ophalen, wil je meer functies zoals:
+- Lijsten van Klassen/Docenten/Lokalen/Leerlingen/Richtingen ophalen
+- Het zoeken van iemand's richting aan de hand van het leerlingnummer
+- Meerdere lessen per uur
+- Mooie opbouw response
+- JSON compatibility (voor apps)
+
+Gebruik dan de uitgebreide API van [tkon99](https://github.com/tkon99): [API-gepro-osi](https://github.com/tkon99/API-gepro-osi)
+
 Huidige Magister
 =================
 De huidige Magister 6 is in HTML5.
